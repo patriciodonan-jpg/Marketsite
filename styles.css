@@ -1,0 +1,25 @@
+:root {
+  --accent: #0b84ff;
+  --muted: #666;
+  --bg: #f7f9fc;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, system-ui, sans-serif; color: #111; background: var(--bg); }
+
+.hero { background: linear-gradient(180deg,#0b84ff 0%, #6ad1ff 100%); color: white; padding: 4rem 0; text-align: center; }
+.hero-inner { max-width: 900px; margin: 0 auto; }
+.hero h1 { font-size: 2.4rem; margin: 0 0 0.5rem; }
+.hero p { margin: 0 0 1rem; opacity: 0.95; }
+
+.container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+h2, h3 { color: #0b447a; }
+.form { display: grid; gap: 0.75rem; max-width: 540px; }
+.form label { display: block; font-size: 0.9rem; color: var(--muted); }
+.form input, .form textarea {
+  width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;
+}
+button { background: var(--accent); color: white; padding: 0.7rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
+.status { margin-top: 0.5rem; color: var(--muted); }
+
+.footer { text-align: center; padding: 1.5rem 0; color: var(--muted); }
