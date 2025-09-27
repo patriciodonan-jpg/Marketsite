@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+
+  php:
+    build: ./backend-php
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URI: mongodb://root:example@mongo:27017
+      MONGO_DB: marketsite
+      MONGO_COLLECTION: contact_submissions
+      ALLOWED_ORIGIN: http://localhost:5173
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_PORT: ${SMTP_PORT}
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_TO: ${EMAIL_TO}
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend-php:/var/www/html:cached
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - php
+    environment:
+      - VITE_API_URL=http://localhost:8080/api/contact.php
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app:cached
+
+volumes:
+  mongo_data:
